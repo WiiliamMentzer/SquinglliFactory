@@ -12,7 +12,7 @@
 }
 
 <ul>
-  @foreach (BestRestaurants.Models.Machine machine in Model)
+  @foreach (Factory.Models.Machine machine in Model)
   {
     <li>@Html.ActionLink($"{machine.MachineName}", "Details", new {id = machine.MachineId})</li>
   }
