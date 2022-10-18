@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Factory.Models;
+
+<h2>Details For @Model.MachineName</h2>
+
+@if (Model.JoinEntities.Count == 0)
+{
+  <p>The Machine currently has no Engineers' assigned to it.</p>
+}
+
+<ul>
+  @foreach (var join in Model.JoinEntities)
+  {
+    <li>@Html.ActionLink($"{join.Engineer.Name}", "Details" ,"Engineers", new { id = join.Engineer.EngineerId})</li>
+  }
+</ul>
+
+<p>@Html.ActionLink("See all Machines", "Index", "Machines")</p>
+<p>@Html.ActionLink("See All Engineers", "Index", "Engineers")</p>
+<p>@Html.ActionLink("Return Home", "Index", "Home")</p>
