@@ -1,17 +1,24 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Factory.Models
 {
-  public class FactoryContext : DbContext
+  public class FactoryContextFactory : IDesignTimeDbContextFactory<FactoryContext>
   {
-    public DbSet<Machine> Machines { get; set; }
-    public DbSet<Engineer> Engineer { get; set; }
-    public DbSet<EngineerMachine> EngineerMachine { get; set; }
-
-    public FactoryContext(DbContextOptions options) : base(options){}
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    FactoryContext IDesignTimeDbContextFactory<FactoryContext>.CreateDbContext(string[] args)
     {
-      optionsBuilder.UseLazyLoadingProxies();
+      IConfigurationRoot configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json")
+        .Build();
+
+      var builder = new DbContextOptionsBuilder<FactoryContext>();
+
+      builder.UseMySql(configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(configuration["ConnectionStrings:DefaultConnection"]));
+
+      return new FactoryContext(builder.Options);
     }
   }
 }
