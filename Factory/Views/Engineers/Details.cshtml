@@ -2,6 +2,7 @@
   Layout = "_Layout";
 }
 
+@using Factory.Models;
 @model Factory.Models.Engineer;
 
 <h2>Engineer Details</h2>
@@ -19,6 +20,11 @@ else
   @foreach(var join in Model.JoinEntities)
   {
     <li>@join.Machine.MachineName</li>
+    @using (Html.BeginForm("RemoveMachine", "Engineers"))
+    {
+      @Html.Hidden("joinId", @join.EngineerMachineId)
+      <input type="submit" value="Remove"/>
+    }
   }
   </ul>
 }

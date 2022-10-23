@@ -43,7 +43,7 @@ namespace Factory
       
       app.Run(async (context) =>
       {
-        await context.Response.WriteAsync("Website Machine BROKE!!!!");
+        await context.Response.WriteAsync("Hello World!");
       });
     }
   }

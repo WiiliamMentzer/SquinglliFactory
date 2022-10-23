@@ -2,7 +2,41 @@
   Layout = "_Layout";
 }
 
+@using Factory.Models;
+
 <h1>Squingilli Factory</h1>
+
+<h1>Your Engineers</h1>
+
+@if (Model.Count == 0)
+{
+  <h3>
+    You haven't hired any Engineers yet!
+  </h3>
+}
+
+<ul>
+  @foreach(Engineer engineer in ViewBag.Engineer)
+  {
+    <li>@Html.ActionLink($"{engineer.Name}", "Details", new { id = engineer.EngineerId })</li>
+  }
+</ul><br><br>
+
+<h1>All Machines:</h1>
+
+@if (Model.Count == 0)
+{
+  <p>There are no machines?</p>
+}
+
+<ul>
+  @foreach (Machine machine in ViewBag.Machine)
+  {
+    <li>@Html.ActionLink($"{machine.MachineName}", "Details", new {id = machine.MachineId})</li>
+  }
+</ul><br><br>
+
+
 <div class="jumbotron">
   <p>@Html.ActionLink("See all Machines", "Index", "Machines")</p>
   <p>@Html.ActionLink("Create new Machine", "Create", "Machines")</p>

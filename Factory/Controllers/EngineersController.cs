@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Factory.Controllers
 {
-  public class EngineerController : Controller 
+  public class EngineersController : Controller 
   { 
 
     private readonly FactoryContext _db;
 
-    public EngineerController(FactoryContext db) 
+    public EngineersController(FactoryContext db) 
     {
       _db = db; 
     }
@@ -73,6 +73,15 @@ namespace Factory.Controllers
       _db.Engineers.Remove(thisEngineer); 
       _db.SaveChanges(); 
       return RedirectToAction("Index"); 
+    }
+
+    [HttpPost]
+    public ActionResult RemoveMachine(int joinId)
+    {
+      var joinEntry = _db.EngineerMachine.FirstOrDefault(entry => entry.EngineerMachineId == joinId);
+      _db.EngineerMachine.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     public ActionResult AddMachine(int id)
