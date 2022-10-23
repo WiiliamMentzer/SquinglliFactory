@@ -10,9 +10,9 @@ namespace Factory.Controllers
   public class EngineerController : Controller 
   { 
 
-    private readonly BestEngineerContext _db;
+    private readonly FactoryContext _db;
 
-    public EngineerController(BestEngineerContext db) 
+    public EngineerController(FactoryContext db) 
     {
       _db = db; 
     }
@@ -30,7 +30,7 @@ namespace Factory.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Engineer enginner)
+    public ActionResult Create(Engineer engineer)
     {
       _db.Engineers.Add(engineer); 
       _db.SaveChanges(); 
